@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <conio.h>
+#include <string.h>
 #define clrsrc() system("cls")
 
 struct BANK
@@ -68,11 +68,16 @@ PIN:
 			} while (choice != 8);
 
 		else
+		{
 			printf("Invalid PIN\n");
-		if (count == 3){
-			exit(0);
+			
+			if (count == 2)
+				exit(0);
+			count++;
+
+			goto PIN;
+
 		}
-		goto PIN;
 	}
 
 	count++;
@@ -119,7 +124,6 @@ void create_new_acc()
 
 void acc_info()
 {
-
 	printf("account information");
 }
 
@@ -130,7 +134,6 @@ void updt_info()
 
 void deposit_amount()
 {
-
 	printf("deposit amount");
 }
 
@@ -150,8 +153,4 @@ void check_balance()
 {
 
 	printf("check balance");
-}
-void exit()
-{
-	
 }
