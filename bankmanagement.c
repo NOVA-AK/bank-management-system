@@ -79,9 +79,6 @@ PIN:
 
 		}
 	}
-
-	count++;
-
 	return 0;
 }
 
