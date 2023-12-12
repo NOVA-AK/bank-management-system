@@ -69,9 +69,9 @@ PIN:
 
 		else
 			printf("Invalid PIN\n");
-		if (count == 3)
+		if (count == 3){
 			exit(0);
-
+		}
 		goto PIN;
 	}
 
