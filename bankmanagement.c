@@ -1,12 +1,20 @@
 #include <stdio.h>
-#include <string.h>
+#include <conio.h>
 #define clrsrc() system("cls")
+
+struct date
+{
+	int day;
+	int month;
+	int year;
+};
 
 struct BANK
 {
 	char name[1000];
 	int aadhar_number;
-	int date;
+	struct date dob;
+	int mobile_no;
 	char address[1000];
 	int account_balance;
 	int Pin;
@@ -99,29 +107,41 @@ void design()
 
 void create_new_acc()
 {
+
+	int cont = 1;
 	FILE *fp;
 	fp = fopen("bank_record.txt","a");
-	system("cls");
+	while(cont != 0)
+	{
+		printf("\nEnter Your Name : ");
+		scanf(" %[^\n]s", &B1.name);
+		printf("\nEnter Your Aadhar Number : ");
+		scanf("%s", &B1.aadhar_number);
+		printf("\nEnter Your Date of Birth : ");
+		scanf("%d/%d/%d", &B1.dob.day , &B1.dob.month, &B1.dob.year);
+		printf("\nEnter Your mobile number : ");
+		scanf("%s",&B1.mobile_no);
+		printf("\nEnter your Address : ");
+		scanf(" %[^\n]s", &B1.address);
+		printf("\nEnter your deposit amount : ");
+		scanf("%d", &B1.account_balance);
+		printf("Enter Your 4 Digit PIN : ");
+		scanf("%d", &B1.Pin);
+		
+		fprintf(fp, " %s\t%d\t%d/%d/%d\t%d\t%s\t%d\t%d\n",B1.name,B1.aadhar_number,B1.dob.day, B1.dob.month, B1.dob.year, B1.mobile_no, 						B1.address,B1.account_balance,B1.Pin);
+		
+		printf("\nDo you wish to continue adding more details. If Yes, press 1. Else, press 0 : ");
+		scanf("%d",&cont);
+	}
 
-	printf("\nEnter Your Name : ");
-	scanf(" %[^\n]s", &B1.name);
-	printf("\nEnter Your Aadhar Number : ");
-	scanf("%d", &B1.aadhar_number);
-	printf("\nEnter your Address : ");
-	scanf(" %[^\n]s", &B1.address);
-	printf("\nEnter your deposit amount : ");
-	scanf("%d", &B1.account_balance);
-	printf("Enter Your 4 Digit PIN : ");
-	scanf("%d", &B1.Pin);
 
-	fprintf(fp, " %s %d %s %d %d\n",B1.name,B1.aadhar_number,B1.address,B1.account_balance,B1.Pin);
 
 	fclose(fp);
 }
 
 void acc_info()
 {
-	printf("account information");
+
 }
 
 void updt_info()
