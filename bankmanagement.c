@@ -1,4 +1,4 @@
-#include <stdio.h>hi
+#include <stdio.h>
 #include <conio.h>
 #define clrsrc() system("cls")
 
