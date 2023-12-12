@@ -128,7 +128,7 @@ void create_new_acc()
 		printf("Enter Your 4 Digit PIN : ");
 		scanf("%d", &B1.Pin);
 		
-		fprintf(fp, " %s\t%d\t%d/%d/%d\t%d\t%s\t%d\t%d\n",B1.name,B1.aadhar_number,B1.dob.day, B1.dob.month, B1.dob.year, B1.mobile_no, 						B1.address,B1.account_balance,B1.Pin);
+		fprintf(fp, " %s\t%d\t%d/%d/%d\t%d\t%s\t%d\t%d\n",B1.name,B1.aadhar_number,B1.dob.day, B1.dob.month, B1.dob.year, B1.mobile_no,B1.address,B1.account_balance,B1.Pin);
 		
 		printf("\nDo you wish to continue adding more details. If Yes, press 1. Else, press 0 : ");
 		scanf("%d",&cont);
