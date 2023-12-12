@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <conio.h>
 #define clrsrc() system("cls")
 
 struct BANK
@@ -82,6 +82,7 @@ PIN:
 
 void design()
 {
+	system("cls");
 	printf("---------------BANK MANAGEMENT SYSTEM---------------");
 	printf("\n\t 1) Create Account.");
 	printf("\n\t 2) Account Information.");
@@ -96,17 +97,24 @@ void design()
 
 void create_new_acc()
 {
+	FILE *fp;
+	fp = fopen("bank_record.txt","a");
+	system("cls");
+
 	printf("\nEnter Your Name : ");
-	scanf("%[^\n]s", B1.name);
-	gets(B1.name);
+	scanf(" %[^\n]s", &B1.name);
 	printf("\nEnter Your Aadhar Number : ");
 	scanf("%d", &B1.aadhar_number);
 	printf("\nEnter your Address : ");
-	scanf("%[^\n]s", B1.address);
+	scanf(" %[^\n]s", &B1.address);
 	printf("\nEnter your deposit amount : ");
 	scanf("%d", &B1.account_balance);
-	printf("Enter Your 4 Digit PIN");
+	printf("Enter Your 4 Digit PIN : ");
 	scanf("%d", &B1.Pin);
+
+	fprintf(fp, " %s %d %s %d %d\n",B1.name,B1.aadhar_number,B1.address,B1.account_balance,B1.Pin);
+
+	fclose(fp);
 }
 
 void acc_info()
@@ -142,4 +150,8 @@ void check_balance()
 {
 
 	printf("check balance");
+}
+void exit()
+{
+	
 }
