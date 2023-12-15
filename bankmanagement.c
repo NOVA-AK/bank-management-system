@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <conio.h>
-#define clrsrc() system("cls")
+//#include <conio.h>
+//#define clrsrc() system("cls")
 
 struct date
 {
@@ -13,27 +13,33 @@ struct BANK
 {
 	char name[1000];
 	int aadhar_number;
+    	int accountNumber;
 	struct date dob;
 	int mobile_no;
 	char address[1000];
 	int account_balance;
 	int Pin;
 };
+
 struct BANK B1;
 
 void design();
 void create_new_acc();
-void acc_info();
+void saveAccountDetails(struct BANK *);
 void updt_info();
-void deposit_amount();
-void withdrawal_money();
+void deposit_amount(struct BANK *,float);
+void withdrawal_money(struct BANK *,float);
 void transaction();
-void check_balance();
+float check_balance(struct BANK *);
 void exit();
 
 int main()
 {
 	int pin, choice, count = 0;
+    struct BANK B1;
+    B1.accountNumber = 123;      // Change this to your account number
+    B1.account_balance = 0.0;
+    float amount;
 PIN:
 	printf("Enter Your Login PIN :");
 	scanf("%d", &pin);
@@ -50,23 +56,31 @@ PIN:
 				case 1:
 					create_new_acc();
 					break;
-				case 2:
-					acc_info();
-					break;
+				
 				case 3:
 					updt_info();
 					break;
 				case 4:
-					deposit_amount();
+                printf("Enter amount to deposit: ");
+                scanf("%f", &amount);
+                deposit_amount(&B1, amount);
+                saveAccountDetails(&B1);
+					//deposit_amount();
 					break;
 				case 5:
-					withdrawal_money();
+                printf("Enter amount to withdraw: ");
+                scanf("%f", &amount);
+                withdrawal_money(&B1, amount);
+                saveAccountDetails(&B1);
+					//withdrawal_money();
 					break;
 				case 6:
+                 //printf("Total Balance: %.2f\n", check_balance(&B1));
 					transaction();
 					break;
 				case 7:
-					check_balance();
+                 printf("Total Balance: %.2f\n", check_balance(&B1));
+					//check_balance();
 					break;
 				case 8:
 					exit(0);
@@ -92,7 +106,7 @@ PIN:
 
 void design()
 {
-	system("cls");
+	//system("cls");
 	printf("---------------BANK MANAGEMENT SYSTEM---------------");
 	printf("\n\t 1) Create Account.");
 	printf("\n\t 2) Account Information.");
@@ -114,18 +128,18 @@ void create_new_acc()
 	while(cont != 0)
 	{
 		printf("\nEnter Your Name : ");
-		scanf(" %[^\n]s", &B1.name);
+		scanf(" %[^\n]s", B1.name);
 		printf("\nEnter Your Aadhar Number : ");
-		scanf("%s", &B1.aadhar_number);
+		scanf("%d", &B1.aadhar_number);
 		printf("\nEnter Your Date of Birth : ");
 		scanf("%d/%d/%d", &B1.dob.day , &B1.dob.month, &B1.dob.year);
 		printf("\nEnter Your mobile number : ");
-		scanf("%s",&B1.mobile_no);
+		scanf("%d",&B1.mobile_no);
 		printf("\nEnter your Address : ");
-		scanf(" %[^\n]s", &B1.address);
+		scanf(" %[^\n]s", B1.address);
 		printf("\nEnter your deposit amount : ");
 		scanf("%d", &B1.account_balance);
-		printf("Enter Your 4 Digit PIN : ");
+		printf("\nEnter Your 4 Digit PIN : ");
 		scanf("%d", &B1.Pin);
 		
 		fprintf(fp, " %s\t%d\t%d/%d/%d\t%d\t%s\t%d\t%d\n",B1.name,B1.aadhar_number,B1.dob.day, B1.dob.month, B1.dob.year, B1.mobile_no,B1.address,B1.account_balance,B1.Pin);
@@ -139,35 +153,52 @@ void create_new_acc()
 	fclose(fp);
 }
 
-void acc_info()
-{
 
-}
 
 void updt_info()
-{
+{	
 	printf("update information");
 }
 
-void deposit_amount()
-{
-	printf("deposit amount");
+void deposit_amount(struct BANK *account, float amount)
+{       
+                account->account_balance += amount;
+    printf("Deposited %.2f\n", amount);
 }
 
-void withdrawal_money()
-{
-
-	printf("withdrawal money");
+void withdrawal_money(struct BANK *account, float amount)
+{    printf("withdrawal money");
+    if (amount > account->account_balance) {
+        printf("Insufficient balance.\n");
+    } else {
+        account->account_balance -= amount;
+        printf("Withdrawn %.2f\n", amount);
+    }
 }
 
 void transaction()
-{
-
+{  
 	printf("transaction");
 }
 
-void check_balance()
-{
+float check_balance(struct BANK *account)
+{   
 
 	printf("check balance");
+    return account->account_balance;
+}
+void saveAccountDetails(struct BANK *account)
+{
+     
+    FILE *fp = fopen("account_details.txt", "a");
+    if (fp == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+    fprintf(fp, "%s\t%d\t%d/%d/%d\t%d\t%s\t%d\t%d",
+            account->name, account->aadhar_number, account->dob.day, account->dob.month, account->dob.year,
+            account->mobile_no, account->address, account->account_balance, account->Pin);
+            ;
+    fclose(fp);;
+
 }
